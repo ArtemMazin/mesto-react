@@ -11,9 +11,9 @@ function App() {
       <Main />
       <Footer />
       <PopupWithForm
-        title={'Редактировать профиль'}
-        name={'profile'}
-        buttonName={'Сохранить'}>
+        title='Редактировать профиль'
+        name='profile'
+        buttonName='Сохранить'>
         <label>
           <input
             className='popup__input popup__input_type_name'
@@ -22,8 +22,8 @@ function App() {
             // value=''
             placeholder='Введите имя'
             required
-            minlength='2'
-            maxlength='40'
+            minLength='2'
+            maxLength='40'
           />
           <span
             className='popup__input-error'
@@ -35,8 +35,8 @@ function App() {
             // value=''
             placeholder='Введите профессию'
             required
-            minlength='2'
-            maxlength='200'
+            minLength='2'
+            maxLength='200'
           />
           <span
             className='popup__input-error'
@@ -44,9 +44,9 @@ function App() {
         </label>
       </PopupWithForm>
       <PopupWithForm
-        title={'Новое место'}
-        name={'cards'}
-        buttonName={'Создать'}>
+        title='Новое место'
+        name='cards'
+        buttonName='Создать'>
         <label>
           <input
             className='popup__input popup__input_type_name'
@@ -56,8 +56,8 @@ function App() {
             // value=''
             placeholder='Введите название'
             required
-            minlength='2'
-            maxlength='30'
+            minLength='2'
+            maxLength='30'
           />
           <span
             className='popup__input-error'
@@ -77,9 +77,9 @@ function App() {
         </label>
       </PopupWithForm>
       <PopupWithForm
-        title={'Обновить аватар'}
-        name={'avatar'}
-        buttonName={'Сохранить'}>
+        title='Обновить аватар'
+        name='avatar'
+        buttonName='Сохранить'>
         <label>
           <input
             className='popup__input popup__input_type_name'
@@ -95,9 +95,9 @@ function App() {
         </label>
       </PopupWithForm>
       <PopupWithForm
-        title={'Вы уверены?'}
-        name={'delete'}
-        buttonName={'Да'}></PopupWithForm>
+        title='Вы уверены?'
+        name='delete'
+        buttonName='Да'></PopupWithForm>
       <template id='card-template'>
         <li className='cards__item'>
           <button
