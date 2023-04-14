@@ -1,9 +1,10 @@
 import React from 'react';
 
 function PopupWithForm(props) {
+
   return (
     <div
-      className='popup popup_background_light'
+      className={`popup popup_background_light ${props.isOpen ? 'popup_opened' : ''}`}
       id={`popup-${props.name}`}>
       <div className='popup__container'>
         <h2 className='popup__title'>{props.title}</h2>

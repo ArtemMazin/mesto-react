@@ -1,4 +1,5 @@
 import '../index.css';
+import React from 'react';
 import Footer from './Footer.jsx';
 import Header from './Header.jsx';
 import ImagePopup from './ImagePopup.jsx';
@@ -6,15 +7,28 @@ import Main from './Main.jsx';
 import PopupWithForm from './PopupWithForm.jsx';
 
 function App() {
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+
+  const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
+  const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
+  const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
+
   return (
     <div>
       <Header />
-      <Main />
+      <Main onEditProfile={handleEditProfileClick}
+      onAddPlace={handleAddPlaceClick}
+      onEditAvatar={handleEditAvatarClick}
+      />
       <Footer />
       <PopupWithForm
         title="Редактировать профиль"
         name="profile"
         buttonName="Сохранить"
+        isOpen={isEditProfilePopupOpen}
       >
         <label>
           <input
@@ -51,6 +65,7 @@ function App() {
         title="Новое место"
         name="cards"
         buttonName="Создать"
+        isOpen={isAddPlacePopupOpen}
       >
         <label>
           <input
@@ -87,6 +102,7 @@ function App() {
         title="Обновить аватар"
         name="avatar"
         buttonName="Сохранить"
+        isOpen={isEditAvatarPopupOpen}
       >
         <label>
           <input
