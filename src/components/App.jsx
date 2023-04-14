@@ -7,21 +7,28 @@ import Main from './Main.jsx';
 import PopupWithForm from './PopupWithForm.jsx';
 
 function App() {
-
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
 
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
   const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
+  const closeAllPopups = () => {
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  };
 
   return (
     <div>
       <Header />
-      <Main onEditProfile={handleEditProfileClick}
-      onAddPlace={handleAddPlaceClick}
-      onEditAvatar={handleEditAvatarClick}
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
       />
       <Footer />
       <PopupWithForm
@@ -29,6 +36,7 @@ function App() {
         name="profile"
         buttonName="Сохранить"
         isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <label>
           <input
@@ -66,6 +74,7 @@ function App() {
         name="cards"
         buttonName="Создать"
         isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       >
         <label>
           <input
@@ -103,6 +112,7 @@ function App() {
         name="avatar"
         buttonName="Сохранить"
         isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       >
         <label>
           <input
@@ -123,6 +133,7 @@ function App() {
         title="Вы уверены?"
         name="delete"
         buttonName="Да"
+        onClose={closeAllPopups}
       ></PopupWithForm>
       <ImagePopup />
       <template id="card-template">
