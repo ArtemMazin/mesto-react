@@ -1,10 +1,12 @@
 import React from 'react';
 import api from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api.getProfileData().then((data) => {
@@ -12,7 +14,17 @@ function Main(props) {
       setUserDescription(data.about);
       setUserAvatar(data.avatar);
     });
-  });
+    api.getInitialCards().then((data) => {
+      setCards(
+        data.map((card) => ({
+          link: card.link,
+          id: card._id,
+          name: card.name,
+          likes: card.likes,
+        }))
+      );
+    });
+  }, []);
 
   return (
     <main className='main wrapper'>
@@ -45,7 +57,14 @@ function Main(props) {
           onClick={props.onAddPlace}></button>
       </section>
       <section className='cards'>
-        <ul className='cards__items'></ul>
+        <ul className='cards__items'>
+          {cards.map((card) => (
+            <Card
+              card={card}
+              key={card.id}
+            />
+          ))}
+        </ul>
       </section>
     </main>
   );

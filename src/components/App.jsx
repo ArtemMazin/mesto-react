@@ -127,27 +127,6 @@ function App() {
         buttonName='Да'
         onClose={closeAllPopups}></PopupWithForm>
       <ImagePopup />
-      <template id='card-template'>
-        <li className='cards__item'>
-          <button
-            className='cards__remove-icon'
-            type='button'></button>
-          <img
-            src='./images/preview.png'
-            alt='Название места'
-            className='cards__image'
-          />
-          <div className='cards__description'>
-            <h2 className='cards__text'></h2>
-            <div>
-              <button
-                className='cards__like'
-                type='button'></button>
-              <p className='cards__like-count'></p>
-            </div>
-          </div>
-        </li>
-      </template>
     </div>
   );
 }
