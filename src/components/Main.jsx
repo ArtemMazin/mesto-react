@@ -2,7 +2,7 @@ import React from 'react';
 import api from '../utils/api';
 import Card from './Card';
 
-function Main(props) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
@@ -14,9 +14,9 @@ function Main(props) {
       setUserDescription(data.about);
       setUserAvatar(data.avatar);
     });
-    api.getInitialCards().then((data) => {
+    api.getInitialCards().then((cards) => {
       setCards(
-        data.map((card) => ({
+        cards.map((card) => ({
           link: card.link,
           id: card._id,
           name: card.name,
@@ -32,7 +32,7 @@ function Main(props) {
         <div className='profile__content'>
           <div
             className='profile__avatar-container'
-            onClick={props.onEditAvatar}>
+            onClick={onEditAvatar}>
             <img
               src={userAvatar}
               alt='Аватар профиля'
@@ -46,7 +46,7 @@ function Main(props) {
               <button
                 className='profile__edit-button'
                 type='button'
-                onClick={props.onEditProfile}></button>
+                onClick={onEditProfile}></button>
             </div>
             <p className='profile__job'>{userDescription}</p>
           </div>
@@ -54,7 +54,7 @@ function Main(props) {
         <button
           className='profile__add-button'
           type='button'
-          onClick={props.onAddPlace}></button>
+          onClick={onAddPlace}></button>
       </section>
       <section className='cards'>
         <ul className='cards__items'>
@@ -62,6 +62,7 @@ function Main(props) {
             <Card
               card={card}
               key={card.id}
+              onCardClick={onCardClick}
             />
           ))}
         </ul>

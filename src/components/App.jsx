@@ -12,14 +12,17 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
   const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
+  const handleCardClick = (card) => setSelectedCard(card);
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   };
 
   return (
@@ -29,6 +32,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm
@@ -126,7 +130,10 @@ function App() {
         name='delete'
         buttonName='Да'
         onClose={closeAllPopups}></PopupWithForm>
-      <ImagePopup />
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
+      />
     </div>
   );
 }
