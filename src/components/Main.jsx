@@ -1,7 +1,18 @@
-import avatar from '../images/kusto.jpg';
+import React from 'react';
+import api from '../utils/api';
 
 function Main(props) {
-  
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+
+  React.useEffect(() => {
+    api.getProfileData().then((data) => {
+      setUserName(data.name);
+      setUserDescription(data.about);
+      setUserAvatar(data.avatar);
+    });
+  });
 
   return (
     <main className='main wrapper'>
@@ -11,7 +22,7 @@ function Main(props) {
             className='profile__avatar-container'
             onClick={props.onEditAvatar}>
             <img
-              src={avatar}
+              src={userAvatar}
               alt='Аватар профиля'
               className='profile__avatar'
             />
@@ -19,13 +30,13 @@ function Main(props) {
 
           <div className='profile__info'>
             <div className='profile__description'>
-              <h1 className='profile__name'></h1>
+              <h1 className='profile__name'>{userName}</h1>
               <button
                 className='profile__edit-button'
                 type='button'
                 onClick={props.onEditProfile}></button>
             </div>
-            <p className='profile__job'></p>
+            <p className='profile__job'>{userDescription}</p>
           </div>
         </div>
         <button

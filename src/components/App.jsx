@@ -1,10 +1,10 @@
 import '../index.css';
 import React from 'react';
-import Footer from './Footer.jsx';
-import Header from './Header.jsx';
-import ImagePopup from './ImagePopup.jsx';
-import Main from './Main.jsx';
-import PopupWithForm from './PopupWithForm.jsx';
+import Footer from './Footer';
+import Header from './Header';
+import ImagePopup from './ImagePopup';
+import Main from './Main';
+import PopupWithForm from './PopupWithForm';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -32,129 +32,118 @@ function App() {
       />
       <Footer />
       <PopupWithForm
-        title="Редактировать профиль"
-        name="profile"
-        buttonName="Сохранить"
+        title='Редактировать профиль'
+        name='profile'
+        buttonName='Сохранить'
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      >
+        onClose={closeAllPopups}>
         <label>
           <input
-            className="popup__input popup__input_type_name"
-            type="text"
-            name="name"
+            className='popup__input popup__input_type_name'
+            type='text'
+            name='name'
             // value=''
-            placeholder="Введите имя"
+            placeholder='Введите имя'
             required
-            minLength="2"
-            maxLength="40"
+            minLength='2'
+            maxLength='40'
           />
           <span
-            className="popup__input-error"
-            id="name-error"
-          ></span>
+            className='popup__input-error'
+            id='name-error'></span>
           <input
-            className="popup__input popup__input_type_job"
-            type="text"
-            name="job"
+            className='popup__input popup__input_type_job'
+            type='text'
+            name='job'
             // value=''
-            placeholder="Введите профессию"
+            placeholder='Введите профессию'
             required
-            minLength="2"
-            maxLength="200"
+            minLength='2'
+            maxLength='200'
           />
           <span
-            className="popup__input-error"
-            id="job-error"
-          ></span>
+            className='popup__input-error'
+            id='job-error'></span>
         </label>
       </PopupWithForm>
       <PopupWithForm
-        title="Новое место"
-        name="cards"
-        buttonName="Создать"
+        title='Новое место'
+        name='cards'
+        buttonName='Создать'
         isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-      >
+        onClose={closeAllPopups}>
         <label>
           <input
-            className="popup__input popup__input_type_name"
-            id="name-cards__input"
-            type="text"
-            name="cards_input_name"
+            className='popup__input popup__input_type_name'
+            id='name-cards__input'
+            type='text'
+            name='cards_input_name'
             // value=''
-            placeholder="Введите название"
+            placeholder='Введите название'
             required
-            minLength="2"
-            maxLength="30"
+            minLength='2'
+            maxLength='30'
           />
           <span
-            className="popup__input-error"
-            id="cards_input_name-error"
-          ></span>
+            className='popup__input-error'
+            id='cards_input_name-error'></span>
           <input
-            className="popup__input popup__input_type_job"
-            id="link-cards__input"
-            type="url"
-            name="cards_input_link"
+            className='popup__input popup__input_type_job'
+            id='link-cards__input'
+            type='url'
+            name='cards_input_link'
             // value=''
-            placeholder="Введите ссылку"
+            placeholder='Введите ссылку'
             required
           />
           <span
-            className="popup__input-error"
-            id="cards_input_link-error"
-          ></span>
+            className='popup__input-error'
+            id='cards_input_link-error'></span>
         </label>
       </PopupWithForm>
       <PopupWithForm
-        title="Обновить аватар"
-        name="avatar"
-        buttonName="Сохранить"
+        title='Обновить аватар'
+        name='avatar'
+        buttonName='Сохранить'
         isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      >
+        onClose={closeAllPopups}>
         <label>
           <input
-            className="popup__input popup__input_type_name"
-            name="avatar"
-            type="url"
+            className='popup__input popup__input_type_name'
+            name='avatar'
+            type='url'
             // value=''
-            placeholder="Введите ссылку на изображение"
+            placeholder='Введите ссылку на изображение'
             required
           />
           <span
-            className="popup__input-error"
-            id="avatar-error"
-          ></span>
+            className='popup__input-error'
+            id='avatar-error'></span>
         </label>
       </PopupWithForm>
       <PopupWithForm
-        title="Вы уверены?"
-        name="delete"
-        buttonName="Да"
-        onClose={closeAllPopups}
-      ></PopupWithForm>
+        title='Вы уверены?'
+        name='delete'
+        buttonName='Да'
+        onClose={closeAllPopups}></PopupWithForm>
       <ImagePopup />
-      <template id="card-template">
-        <li className="cards__item">
+      <template id='card-template'>
+        <li className='cards__item'>
           <button
-            className="cards__remove-icon"
-            type="button"
-          ></button>
+            className='cards__remove-icon'
+            type='button'></button>
           <img
-            src="./images/preview.png"
-            alt="Название места"
-            className="cards__image"
+            src='./images/preview.png'
+            alt='Название места'
+            className='cards__image'
           />
-          <div className="cards__description">
-            <h2 className="cards__text"></h2>
+          <div className='cards__description'>
+            <h2 className='cards__text'></h2>
             <div>
               <button
-                className="cards__like"
-                type="button"
-              ></button>
-              <p className="cards__like-count"></p>
+                className='cards__like'
+                type='button'></button>
+              <p className='cards__like-count'></p>
             </div>
           </div>
         </li>
