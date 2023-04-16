@@ -9,21 +9,23 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getProfileData().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-    });
-    api.getInitialCards().then((cards) => {
-      setCards(
-        cards.map((card) => ({
-          link: card.link,
-          id: card._id,
-          name: card.name,
-          likes: card.likes,
-        }))
-      );
-    });
+    Promise.all([api.getProfileData(), api.getInitialCards()])
+      .then(([userInfo, arrayCards]) => {
+        setUserName(userInfo.name);
+        setUserDescription(userInfo.about);
+        setUserAvatar(userInfo.avatar);
+        setCards(
+          arrayCards.map((card) => ({
+            link: card.link,
+            id: card._id,
+            name: card.name,
+            likes: card.likes,
+          }))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
