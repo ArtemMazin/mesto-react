@@ -10,22 +10,22 @@ import PopupWithFormCard from './popupsWithForm/PopupWithFormCard';
 import PopupWithFormAvatar from './popupsWithForm/PopupWithFormAvatar';
 
 function App() {
-  //использую пустую строку для начального значения, т.к. она приводится к false и ее удобно возвращать с оператором &&
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState('');
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState('');
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState('');
-  const [selectedCard, setSelectedCard] = React.useState('');
+    React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
   const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
   const handleCardClick = (card) => setSelectedCard(card);
   const closeAllPopups = () => {
-    setIsEditProfilePopupOpen('');
-    setIsEditAvatarPopupOpen('');
-    setIsAddPlacePopupOpen('');
-    setSelectedCard('');
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard(null);
   };
 
   return (
