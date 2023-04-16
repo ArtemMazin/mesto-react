@@ -6,4 +6,6 @@
 
 ---
 
+### [Посмотреть проект](https://artemmazin.github.io/mesto-react/)
+
 В данном проекте используется библиотека React
