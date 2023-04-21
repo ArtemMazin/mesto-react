@@ -18,13 +18,21 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState();
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api
-      .getProfileData()
-      .then((userInfo) => {
+    Promise.all([api.getInitialCards(), api.getProfileData()])
+      .then(([arrayCards, userInfo]) => {
         setCurrentUser(userInfo);
+        setCards(
+          arrayCards.map((card) => ({
+            link: card.link,
+            id: card._id,
+            name: card.name,
+            likes: card.likes,
+          }))
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -51,6 +59,7 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
+          cards={cards}
         />
         <Footer />
         <PopupWithForm
