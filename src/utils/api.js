@@ -72,23 +72,22 @@ class Api {
       },
     }).then((res) => this._getResponseData(res));
   }
-  likeCard(cardID) {
-    return fetch(`${this.baseUrl}cards/${cardID}/likes`, {
-      method: 'PUT',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => this._getResponseData(res));
-  }
-  deleteLikeCard(cardID) {
-    return fetch(`${this.baseUrl}cards/${cardID}/likes`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => this._getResponseData(res));
+  changeLikeCardStatus(cardID, isLiked) {
+    return isLiked
+      ? fetch(`${this.baseUrl}cards/${cardID}/likes`, {
+          method: 'PUT',
+          headers: {
+            authorization: this.authorization,
+            'Content-Type': 'application/json',
+          },
+        }).then((res) => this._getResponseData(res))
+      : fetch(`${this.baseUrl}cards/${cardID}/likes`, {
+          method: 'DELETE',
+          headers: {
+            authorization: this.authorization,
+            'Content-Type': 'application/json',
+          },
+        }).then((res) => this._getResponseData(res));
   }
 }
 const api = new Api({

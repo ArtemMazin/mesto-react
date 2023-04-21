@@ -1,8 +1,16 @@
 import React, { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import api from '../utils/api';
 import Card from './Card';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards }) {
+function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+  onCardLike,
+  cards,
+}) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -40,8 +48,9 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards }) {
           {cards.map((card) => (
             <Card
               card={card}
-              key={card.id}
+              key={card._id}
               onCardClick={onCardClick}
+              onCardLike={onCardLike}
             />
           ))}
         </ul>
