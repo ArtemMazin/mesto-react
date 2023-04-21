@@ -31,6 +31,7 @@ function App() {
             id: card._id,
             name: card.name,
             likes: card.likes,
+            owner: card.owner,
           }))
         );
       })

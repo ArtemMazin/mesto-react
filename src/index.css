@@ -29,6 +29,7 @@
 @import url(./blocks/cards/__text/cards__text.css);
 @import url(./blocks/cards/__like-count/cards__like-count.css);
 @import url(./blocks/cards/__remove-icon/cards__remove-icon.css);
+@import url(./blocks/cards/__remove-icon/_visible/cards__remove-icon_visible.css);
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);
