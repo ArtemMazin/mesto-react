@@ -5,11 +5,11 @@ import Header from './Header';
 import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
-import PopupWithFormProfile from './popupsWithForm/PopupWithFormProfile';
 import PopupWithFormCard from './popupsWithForm/PopupWithFormCard';
 import PopupWithFormAvatar from './popupsWithForm/PopupWithFormAvatar';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -52,14 +52,10 @@ function App() {
           onCardClick={handleCardClick}
         />
         <Footer />
-        <PopupWithForm
-          title='Редактировать профиль'
-          name='profile'
-          buttonName='Сохранить'
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}>
-          <PopupWithFormProfile />
-        </PopupWithForm>
+          onClose={closeAllPopups}
+        />
         <PopupWithForm
           title='Новое место'
           name='cards'

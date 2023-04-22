@@ -30,8 +30,11 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
     });
   }
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then((newCard) => {
-      const newCards = newCard.filter((newCard) => !newCard);
+    api.deleteCard(card._id).then(() => {
+      const newCards = cards.filter((newCard) => {
+        return newCard._id !== card._id;
+      });
+
       setCards(newCards);
     });
   }
