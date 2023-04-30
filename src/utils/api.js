@@ -46,8 +46,8 @@ class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: data.cards_input_name,
-        link: data.cards_input_link,
+        name: data.name,
+        link: data.link,
       }),
     }).then((res) => this._getResponseData(res));
   }
