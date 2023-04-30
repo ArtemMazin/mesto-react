@@ -13,7 +13,8 @@ function PopupWithForm(props) {
           className='popup__form'
           name={`form_${props.name}`}
           id={`form-${props.name}`}
-          noValidate>
+          noValidate
+          onSubmit={props.onSubmit}>
           {props.children}
           <button
             className='popup__button-submit popup__button-submit_disabled'

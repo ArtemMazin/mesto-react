@@ -41,6 +41,13 @@ function App() {
     setSelectedCard(null);
   };
 
+  function handleUpdateUser(user) {
+    api.changeProfileData(user).then((userInfo) => {
+      setCurrentUser(userInfo);
+      closeAllPopups();
+    });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
@@ -55,6 +62,7 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
         <PopupWithForm
           title='Новое место'
