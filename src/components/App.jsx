@@ -6,10 +6,10 @@ import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import PopupWithFormCard from './popupsWithForm/PopupWithFormCard';
-import PopupWithFormAvatar from './popupsWithForm/PopupWithFormAvatar';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -47,6 +47,12 @@ function App() {
       closeAllPopups();
     });
   }
+  function handleUpdateAvatar(user) {
+    api.changeAvatar(user).then((userInfo) => {
+      setCurrentUser(userInfo);
+      closeAllPopups();
+    });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -64,6 +70,11 @@ function App() {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
         />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
         <PopupWithForm
           title='Новое место'
           name='cards'
@@ -72,14 +83,7 @@ function App() {
           onClose={closeAllPopups}>
           <PopupWithFormCard />
         </PopupWithForm>
-        <PopupWithForm
-          title='Обновить аватар'
-          name='avatar'
-          buttonName='Сохранить'
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}>
-          <PopupWithFormAvatar />
-        </PopupWithForm>
+
         <PopupWithForm
           title='Вы уверены?'
           name='delete'
