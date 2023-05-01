@@ -1,67 +1,34 @@
 import '../index.css';
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Footer from './Footer';
 import Header from './Header';
-import ImagePopup from './ImagePopup';
 import Main from './Main';
-import PopupWithForm from './PopupWithForm';
-import AddPlacePopup from './AddPlacePopup';
 import api from '../utils/api';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import AddPlacePopup from './AddPlacePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
-    Promise.all([api.getProfileData()])
-      .then(([userInfo]) => {
+  useEffect(() => {
+    Promise.all([api.getProfileData(), api.getInitialCards()])
+      .then(([userInfo, arrayCards]) => {
         setCurrentUser(userInfo);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  React.useEffect(() => {
-    Promise.all([api.getInitialCards()])
-      .then(([arrayCards]) => {
         setCards(arrayCards);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
-      const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
-      // Обновляем стейт
-      setCards(newCards);
-    });
-  }
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      const newCards = cards.filter((newCard) => {
-        return newCard._id !== card._id;
-      });
-
-      setCards(newCards);
-    });
-  }
 
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
@@ -80,12 +47,31 @@ function App() {
       closeAllPopups();
     });
   }
+
   function handleUpdateAvatar(user) {
     api.changeAvatar(user).then((userInfo) => {
       setCurrentUser(userInfo);
       closeAllPopups();
     });
   }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+      setCards(newCards);
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      const newCards = cards.filter((newCard) => {
+        return newCard._id !== card._id;
+      });
+      setCards(newCards);
+    });
+  }
+
   function handleAddPlaceSubmit(card) {
     console.log(card);
     api.addNewCard(card).then((newCard) => {
@@ -123,7 +109,6 @@ function App() {
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
         />
-
         <PopupWithForm
           title='Вы уверены?'
           name='delete'
