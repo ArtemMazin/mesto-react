@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
+function AddPlacePopup({
+  isOpen,
+  onClose,
+  onAddPlaceSubmit,
+  onUpdateValid,
+  isValid,
+}) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
@@ -15,7 +21,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     onAddPlaceSubmit({
       name,
       link,
@@ -29,7 +34,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
       buttonName='Создать'
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}>
+      onSubmit={handleSubmit}
+      isValid={isValid}>
       <label>
         <input
           className='popup__input popup__input_type_name'
@@ -40,7 +46,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
           required
           minLength='2'
           maxLength='30'
-          onChange={handleChangeName}
+          onChange={(e) => {
+            handleChangeName(e);
+            onUpdateValid(e);
+          }}
         />
         <span
           className='popup__input-error'
@@ -52,7 +61,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit }) {
           name='cards_input_link'
           placeholder='Введите ссылку'
           required
-          onChange={handleChangeLink}
+          onChange={(e) => {
+            handleChangeLink(e);
+            onUpdateValid(e);
+          }}
         />
         <span
           className='popup__input-error'

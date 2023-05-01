@@ -19,6 +19,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
+  //валидация
+  const [isValid, setIsValid] = useState(false);
+  function handleValid(e) {
+    setIsValid(e.target.form.checkValidity());
+  }
+  //
+
   useEffect(() => {
     Promise.all([api.getProfileData(), api.getInitialCards()])
       .then(([userInfo, arrayCards]) => {
@@ -30,16 +37,28 @@ function App() {
       });
   }, []);
 
-  const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
-  const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
-  const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
-  const handleCardClick = (card) => setSelectedCard(card);
-  const closeAllPopups = () => {
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
+  function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(null);
-  };
+  }
 
   function handleUpdateUser(user) {
     api.changeProfileData(user).then((userInfo) => {
@@ -73,7 +92,6 @@ function App() {
   }
 
   function handleAddPlaceSubmit(card) {
-    console.log(card);
     api.addNewCard(card).then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
@@ -98,16 +116,22 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          onUpdateValid={handleValid}
+          isValid={isValid}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          onUpdateValid={handleValid}
+          isValid={isValid}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
+          onUpdateValid={handleValid}
+          isValid={isValid}
         />
         <PopupWithForm
           title='Вы уверены?'
