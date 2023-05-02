@@ -20,13 +20,10 @@ function App() {
   const [cards, setCards] = useState([]);
 
   //валидация
-  const [isValid, setIsValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  function handleValid(e) {
-    setIsValid(e.target.form.checkValidity());
-  }
-  function resetValidation(e) {
-    e.target.reset();
+  function checkFormValid(e) {
+    setIsFormValid(e.target.form.checkValidity());
   }
 
   //
@@ -102,6 +99,9 @@ function App() {
       closeAllPopups();
     });
   }
+  function resetForm(e) {
+    e.target.reset();
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -121,25 +121,24 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
-          onUpdateValid={handleValid}
-          isValid={isValid}
-          resetValidation={resetValidation}
+          onUpdateValid={checkFormValid}
+          isValid={isFormValid}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
-          onUpdateValid={handleValid}
-          isValid={isValid}
-          resetValidation={resetValidation}
+          onUpdateValid={checkFormValid}
+          isValid={isFormValid}
+          resetForm={resetForm}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
-          onUpdateValid={handleValid}
-          isValid={isValid}
-          resetValidation={resetValidation}
+          onUpdateValid={checkFormValid}
+          isValid={isFormValid}
+          resetForm={resetForm}
         />
         <PopupWithForm
           title='Вы уверены?'

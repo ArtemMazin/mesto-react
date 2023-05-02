@@ -7,7 +7,7 @@ function EditAvatarPopup({
   onUpdateAvatar,
   onUpdateValid,
   isValid,
-  resetValidation,
+  resetForm,
 }) {
   const input = useRef();
 
@@ -18,7 +18,7 @@ function EditAvatarPopup({
       avatar: input.current.value,
     });
 
-    resetValidation(e);
+    resetForm(e);
   }
   useEffect(() => {
     input.current.value = '';
