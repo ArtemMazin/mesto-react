@@ -7,6 +7,7 @@ function AddPlacePopup({
   onAddPlaceSubmit,
   onUpdateValid,
   isValid,
+  resetValidation,
 }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
@@ -21,10 +22,13 @@ function AddPlacePopup({
 
   function handleSubmit(e) {
     e.preventDefault();
+
     onAddPlaceSubmit({
       name,
       link,
     });
+
+    resetValidation(e);
   }
 
   return (

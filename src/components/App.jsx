@@ -21,9 +21,14 @@ function App() {
 
   //валидация
   const [isValid, setIsValid] = useState(false);
+
   function handleValid(e) {
     setIsValid(e.target.form.checkValidity());
   }
+  function resetValidation(e) {
+    e.target.reset();
+  }
+
   //
 
   useEffect(() => {
@@ -118,6 +123,7 @@ function App() {
           onUpdateUser={handleUpdateUser}
           onUpdateValid={handleValid}
           isValid={isValid}
+          resetValidation={resetValidation}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
@@ -125,6 +131,7 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
           onUpdateValid={handleValid}
           isValid={isValid}
+          resetValidation={resetValidation}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
@@ -132,6 +139,7 @@ function App() {
           onAddPlaceSubmit={handleAddPlaceSubmit}
           onUpdateValid={handleValid}
           isValid={isValid}
+          resetValidation={resetValidation}
         />
         <PopupWithForm
           title='Вы уверены?'

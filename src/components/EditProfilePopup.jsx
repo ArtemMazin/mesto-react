@@ -8,6 +8,7 @@ function EditProfilePopup({
   onUpdateUser,
   onUpdateValid,
   isValid,
+  resetValidation,
 }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -33,6 +34,8 @@ function EditProfilePopup({
       name,
       job: description,
     });
+
+    resetValidation(e);
   }
 
   return (
