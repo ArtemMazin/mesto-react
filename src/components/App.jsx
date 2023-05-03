@@ -8,11 +8,13 @@ import ImagePopup from './ImagePopup';
 import AddPlacePopup from './AddPlacePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import PopupWithSubmit from './PopupWithSubmit';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isPopupWithSubmit, setIsPopupWithSubmit] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -56,6 +58,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsPopupWithSubmit(false);
     setSelectedCard(null);
   }
 
@@ -89,6 +92,11 @@ function App() {
       setCards(newCards);
     });
   }
+  function handleRemoveIconClick(card) {
+    setSelectedCard(card);
+    setIsPopupWithSubmit(true);
+    console.log(selectedCard);
+  }
 
   function handleAddPlaceSubmit(card) {
     api.addNewCard(card).then((newCard) => {
@@ -108,7 +116,7 @@ function App() {
           onCardClick={handleCardClick}
           cards={cards}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onRemoveIconClick={handleRemoveIconClick}
         />
         <Footer />
         <EditProfilePopup
@@ -135,11 +143,12 @@ function App() {
           isValid={isFormValid}
           setIsFormValid={setIsFormValid}
         />
-        {/* <PopupWithForm
-          title='Вы уверены?'
-          name='delete'
-          buttonName='Да'
-          onClose={closeAllPopups}></PopupWithForm> */}
+        <PopupWithSubmit
+          isOpen={isPopupWithSubmit}
+          onClose={closeAllPopups}
+          onSubmit={handleCardDelete}
+          card={selectedCard}
+        />
         <ImagePopup
           card={selectedCard}
           onClose={closeAllPopups}
