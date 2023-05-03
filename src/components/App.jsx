@@ -1,11 +1,9 @@
-import '../index.css';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
 import api from '../utils/api';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import AddPlacePopup from './AddPlacePopup';
 import EditProfilePopup from './EditProfilePopup';
@@ -19,13 +17,12 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
-  //валидация
+  //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
   const [isFormValid, setIsFormValid] = useState(false);
 
   function checkFormValid(e) {
     setIsFormValid(e.target.form.checkValidity());
   }
-
   //
 
   useEffect(() => {
@@ -99,9 +96,6 @@ function App() {
       closeAllPopups();
     });
   }
-  function resetForm(e) {
-    e.target.reset();
-  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -123,6 +117,7 @@ function App() {
           onUpdateUser={handleUpdateUser}
           onUpdateValid={checkFormValid}
           isValid={isFormValid}
+          setIsFormValid={setIsFormValid}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
@@ -130,7 +125,7 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
           onUpdateValid={checkFormValid}
           isValid={isFormValid}
-          resetForm={resetForm}
+          setIsFormValid={setIsFormValid}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
@@ -138,13 +133,13 @@ function App() {
           onAddPlaceSubmit={handleAddPlaceSubmit}
           onUpdateValid={checkFormValid}
           isValid={isFormValid}
-          resetForm={resetForm}
+          setIsFormValid={setIsFormValid}
         />
-        <PopupWithForm
+        {/* <PopupWithForm
           title='Вы уверены?'
           name='delete'
           buttonName='Да'
-          onClose={closeAllPopups}></PopupWithForm>
+          onClose={closeAllPopups}></PopupWithForm> */}
         <ImagePopup
           card={selectedCard}
           onClose={closeAllPopups}

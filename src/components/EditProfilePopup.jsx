@@ -2,13 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 
-function EditProfilePopup({
-  isOpen,
-  onClose,
-  onUpdateUser,
-  onUpdateValid,
-  isValid,
-}) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, onUpdateValid, isValid, setIsFormValid }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const currentUser = useContext(CurrentUserContext);
@@ -43,7 +37,9 @@ function EditProfilePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}>
+      isValid={isValid}
+      setIsFormValid={setIsFormValid}
+    >
       <label>
         <input
           className='popup__input popup__input_type_name'
@@ -61,7 +57,8 @@ function EditProfilePopup({
         />
         <span
           className='popup__input-error'
-          id='name-error'></span>
+          id='name-error'
+        ></span>
         <input
           className='popup__input popup__input_type_job'
           type='text'
@@ -78,7 +75,8 @@ function EditProfilePopup({
         />
         <span
           className='popup__input-error'
-          id='job-error'></span>
+          id='job-error'
+        ></span>
       </label>
     </PopupWithForm>
   );

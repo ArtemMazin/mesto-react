@@ -1,14 +1,7 @@
 import { useRef, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function EditAvatarPopup({
-  isOpen,
-  onClose,
-  onUpdateAvatar,
-  onUpdateValid,
-  isValid,
-  resetForm,
-}) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onUpdateValid, isValid, setIsFormValid }) {
   const input = useRef();
 
   function handleSubmit(e) {
@@ -17,8 +10,6 @@ function EditAvatarPopup({
     onUpdateAvatar({
       avatar: input.current.value,
     });
-
-    resetForm(e);
   }
   useEffect(() => {
     input.current.value = '';
@@ -32,7 +23,9 @@ function EditAvatarPopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}>
+      isValid={isValid}
+      setIsFormValid={setIsFormValid}
+    >
       <label>
         <input
           className='popup__input popup__input_type_name'
@@ -45,7 +38,8 @@ function EditAvatarPopup({
         />
         <span
           className='popup__input-error'
-          id='avatar-error'></span>
+          id='avatar-error'
+        ></span>
       </label>
     </PopupWithForm>
   );

@@ -1,16 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup({
-  isOpen,
-  onClose,
-  onAddPlaceSubmit,
-  onUpdateValid,
-  isValid,
-  resetForm,
-}) {
+function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onUpdateValid, isValid, setIsFormValid }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+
+  useEffect(() => {
+    setName('');
+    setLink('');
+  }, [isOpen]);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -27,8 +25,6 @@ function AddPlacePopup({
       name,
       link,
     });
-
-    resetForm(e);
   }
 
   return (
@@ -39,7 +35,9 @@ function AddPlacePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}>
+      isValid={isValid}
+      setIsFormValid={setIsFormValid}
+    >
       <label>
         <input
           className='popup__input popup__input_type_name'
@@ -47,6 +45,7 @@ function AddPlacePopup({
           type='text'
           name='cards_input_name'
           placeholder='Введите название'
+          value={name}
           required
           minLength='2'
           maxLength='30'
@@ -57,13 +56,15 @@ function AddPlacePopup({
         />
         <span
           className='popup__input-error'
-          id='cards_input_name-error'></span>
+          id='cards_input_name-error'
+        ></span>
         <input
           className='popup__input popup__input_type_job'
           id='link-cards__input'
           type='url'
           name='cards_input_link'
           placeholder='Введите ссылку'
+          value={link}
           required
           onChange={(e) => {
             handleChangeLink(e);
@@ -72,7 +73,8 @@ function AddPlacePopup({
         />
         <span
           className='popup__input-error'
-          id='cards_input_link-error'></span>
+          id='cards_input_link-error'
+        ></span>
       </label>
     </PopupWithForm>
   );
