@@ -42,25 +42,24 @@ function AddPlacePopup({
 
   return (
     <PopupWithForm
-      title='Новое место'
-      name='cards'
-      buttonName='Создать'
+      title="Новое место"
+      name="cards"
+      buttonName="Создать"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}
-    >
+      isValid={isValid}>
       <label>
         <input
-          className='popup__input popup__input_type_name'
-          id='name-cards__input'
-          type='text'
-          name='cards_input_name'
-          placeholder='Введите название'
+          className="popup__input popup__input_type_name"
+          id="name-cards__input"
+          type="text"
+          name="cards_input_name"
+          placeholder="Введите название"
           value={name}
           required
-          minLength='2'
-          maxLength='30'
+          minLength="2"
+          maxLength="30"
           onChange={(e) => {
             handleChangeName(e);
             onUpdateValid(e);
@@ -68,17 +67,16 @@ function AddPlacePopup({
           }}
         />
         <span
-          className='popup__input-error popup__input-error_active'
-          id='cards_input_name-error'
-        >
+          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          id="cards_input_name-error">
           {errors.cards_input_name}
         </span>
         <input
-          className='popup__input popup__input_type_job'
-          id='link-cards__input'
-          type='url'
-          name='cards_input_link'
-          placeholder='Введите ссылку'
+          className="popup__input popup__input_type_job"
+          id="link-cards__input"
+          type="url"
+          name="cards_input_link"
+          placeholder="Введите ссылку"
           value={link}
           required
           onChange={(e) => {
@@ -88,9 +86,8 @@ function AddPlacePopup({
           }}
         />
         <span
-          className='popup__input-error popup__input-error_active'
-          id='cards_input_link-error'
-        >
+          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          id="cards_input_link-error">
           {errors.cards_input_link}
         </span>
       </label>

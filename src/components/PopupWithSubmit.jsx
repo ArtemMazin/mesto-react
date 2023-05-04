@@ -13,14 +13,14 @@ function PopupWithSubmit({ isOpen, onClose, onSubmit, card, setIsFormValid, isVa
 
   return (
     <PopupWithForm
-      title='Вы уверены?'
-      name='delete'
-      buttonName='Да'
+      title="Вы уверены?"
+      name="delete"
+      buttonName="Да"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
       isValid={isValid}
-    ></PopupWithForm>
+    />
   );
 }
 export default PopupWithSubmit;

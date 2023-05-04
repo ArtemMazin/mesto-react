@@ -44,23 +44,22 @@ function EditProfilePopup({
 
   return (
     <PopupWithForm
-      title='Редактировать профиль'
-      name='profile'
-      buttonName='Сохранить'
+      title="Редактировать профиль"
+      name="profile"
+      buttonName="Сохранить"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}
-    >
+      isValid={isValid}>
       <label>
         <input
-          className='popup__input popup__input_type_name'
-          type='text'
-          name='name'
-          placeholder='Введите имя'
+          className="popup__input popup__input_type_name "
+          type="text"
+          name="name"
+          placeholder="Введите имя"
           required
-          minLength='2'
-          maxLength='40'
+          minLength="2"
+          maxLength="40"
           onChange={(e) => {
             handleChangeName(e);
             onUpdateValid(e);
@@ -69,20 +68,18 @@ function EditProfilePopup({
           value={name || ''}
         />
         <span
-          className='popup__input-error popup__input-error_active'
-          id='name-error'
-        >
-          {' '}
-          {errors.name}
+          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          id="name-error">
+          {errors.name || ''}
         </span>
         <input
-          className='popup__input popup__input_type_job'
-          type='text'
-          name='job'
-          placeholder='Введите профессию'
+          className="popup__input popup__input_type_job"
+          type="text"
+          name="job"
+          placeholder="Введите профессию"
           required
-          minLength='2'
-          maxLength='200'
+          minLength="2"
+          maxLength="200"
           onChange={(e) => {
             handleChangeDescription(e);
             onUpdateValid(e);
@@ -91,11 +88,9 @@ function EditProfilePopup({
           value={description || ''}
         />
         <span
-          className='popup__input-error popup__input-error_active'
-          id='job-error'
-        >
-          {' '}
-          {errors.job}
+          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          id="job-error">
+          {errors.job || ''}
         </span>
       </label>
     </PopupWithForm>

@@ -30,20 +30,19 @@ function EditAvatarPopup({
 
   return (
     <PopupWithForm
-      title='Обновить аватар'
-      name='avatar'
-      buttonName='Сохранить'
+      title="Обновить аватар"
+      name="avatar"
+      buttonName="Сохранить"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}
-    >
+      isValid={isValid}>
       <label>
         <input
-          className='popup__input popup__input_type_name'
-          name='avatar'
-          type='url'
-          placeholder='Введите ссылку на изображение'
+          className="popup__input popup__input_type_name"
+          name="avatar"
+          type="url"
+          placeholder="Введите ссылку на изображение"
           required
           ref={input}
           onChange={(e) => {
@@ -52,10 +51,9 @@ function EditAvatarPopup({
           }}
         />
         <span
-          className='popup__input-error popup__input-error_active'
-          id='avatar-error'
-        >
-          {errors.avatar}
+          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          id="avatar-error">
+          {errors.avatar || ''}
         </span>
       </label>
     </PopupWithForm>

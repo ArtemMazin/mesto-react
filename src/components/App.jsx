@@ -67,6 +67,7 @@ function App() {
     setIsImagePopupOpen(false);
     setIsPopupWithSubmit(false);
     setSelectedCard(null);
+    setErrors({});
   }
 
   function handleUpdateUser(user) {
