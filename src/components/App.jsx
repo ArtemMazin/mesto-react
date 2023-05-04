@@ -22,9 +22,13 @@ function App() {
 
   //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
   const [isFormValid, setIsFormValid] = useState(false);
+  const [errors, setErrors] = useState({});
 
   function checkFormValid(e) {
     setIsFormValid(e.target.form.checkValidity());
+  }
+  function handleChangeErrorsValidation(e) {
+    setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
   }
   //
 
@@ -129,6 +133,8 @@ function App() {
           onUpdateValid={checkFormValid}
           isValid={isFormValid}
           setIsFormValid={setIsFormValid}
+          handleChangeErrorsValidation={handleChangeErrorsValidation}
+          errors={errors}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
@@ -137,6 +143,8 @@ function App() {
           onUpdateValid={checkFormValid}
           isValid={isFormValid}
           setIsFormValid={setIsFormValid}
+          handleChangeErrorsValidation={handleChangeErrorsValidation}
+          errors={errors}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
@@ -145,6 +153,8 @@ function App() {
           onUpdateValid={checkFormValid}
           isValid={isFormValid}
           setIsFormValid={setIsFormValid}
+          handleChangeErrorsValidation={handleChangeErrorsValidation}
+          errors={errors}
         />
         <PopupWithSubmit
           isOpen={isPopupWithSubmit}

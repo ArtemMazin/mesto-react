@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onUpdateValid, isValid, setIsFormValid }) {
+function AddPlacePopup({
+  isOpen,
+  onClose,
+  onAddPlaceSubmit,
+  onUpdateValid,
+  isValid,
+  setIsFormValid,
+  handleChangeErrorsValidation,
+  errors,
+}) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
@@ -55,12 +64,15 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onUpdateValid, isVal
           onChange={(e) => {
             handleChangeName(e);
             onUpdateValid(e);
+            handleChangeErrorsValidation(e);
           }}
         />
         <span
-          className='popup__input-error'
+          className='popup__input-error popup__input-error_active'
           id='cards_input_name-error'
-        ></span>
+        >
+          {errors.cards_input_name}
+        </span>
         <input
           className='popup__input popup__input_type_job'
           id='link-cards__input'
@@ -72,12 +84,15 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onUpdateValid, isVal
           onChange={(e) => {
             handleChangeLink(e);
             onUpdateValid(e);
+            handleChangeErrorsValidation(e);
           }}
         />
         <span
-          className='popup__input-error'
+          className='popup__input-error popup__input-error_active'
           id='cards_input_link-error'
-        ></span>
+        >
+          {errors.cards_input_link}
+        </span>
       </label>
     </PopupWithForm>
   );

@@ -1,7 +1,16 @@
 import { useRef, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onUpdateValid, isValid, setIsFormValid }) {
+function EditAvatarPopup({
+  isOpen,
+  onClose,
+  onUpdateAvatar,
+  onUpdateValid,
+  isValid,
+  setIsFormValid,
+  handleChangeErrorsValidation,
+  errors,
+}) {
   const input = useRef();
 
   useEffect(() => {
@@ -37,12 +46,17 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onUpdateValid, isVal
           placeholder='Введите ссылку на изображение'
           required
           ref={input}
-          onChange={onUpdateValid}
+          onChange={(e) => {
+            onUpdateValid(e);
+            handleChangeErrorsValidation(e);
+          }}
         />
         <span
-          className='popup__input-error'
+          className='popup__input-error popup__input-error_active'
           id='avatar-error'
-        ></span>
+        >
+          {errors.avatar}
+        </span>
       </label>
     </PopupWithForm>
   );
