@@ -11,7 +11,8 @@ function PopupWithSubmit({ isOpen, onClose, onSubmit, card }) {
       buttonName='Да'
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleSubmit}></PopupWithForm>
+      onSubmit={handleSubmit}
+    ></PopupWithForm>
   );
 }
 export default PopupWithSubmit;
