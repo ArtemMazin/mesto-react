@@ -6,6 +6,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onUpdateValid, isVal
   const [link, setLink] = useState('');
 
   useEffect(() => {
+    setIsFormValid(false);
+  }, [isOpen]);
+
+  useEffect(() => {
     setName('');
     setLink('');
   }, [isOpen]);
@@ -36,7 +40,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, onUpdateValid, isVal
       onClose={onClose}
       onSubmit={handleSubmit}
       isValid={isValid}
-      setIsFormValid={setIsFormValid}
     >
       <label>
         <input

@@ -93,12 +93,12 @@ function App() {
         return newCard._id !== card._id;
       });
       setCards(newCards);
+      closeAllPopups();
     });
   }
   function handleRemoveIconClick(card) {
     setSelectedCard(card);
     setIsPopupWithSubmit(true);
-    console.log(selectedCard);
   }
 
   function handleAddPlaceSubmit(card) {
@@ -151,6 +151,8 @@ function App() {
           onClose={closeAllPopups}
           onSubmit={handleCardDelete}
           card={selectedCard}
+          isValid={isFormValid}
+          setIsFormValid={setIsFormValid}
         />
         <ImagePopup
           isOpen={isImagePopupOpen}

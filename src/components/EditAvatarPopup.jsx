@@ -4,6 +4,10 @@ import PopupWithForm from './PopupWithForm';
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onUpdateValid, isValid, setIsFormValid }) {
   const input = useRef();
 
+  useEffect(() => {
+    setIsFormValid(false);
+  }, [isOpen]);
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -24,7 +28,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, onUpdateValid, isVal
       onClose={onClose}
       onSubmit={handleSubmit}
       isValid={isValid}
-      setIsFormValid={setIsFormValid}
     >
       <label>
         <input

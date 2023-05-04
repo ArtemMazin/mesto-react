@@ -1,8 +1,15 @@
 import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function PopupWithSubmit({ isOpen, onClose, onSubmit, card }) {
-  const handleSubmit = () => onSubmit(card);
+function PopupWithSubmit({ isOpen, onClose, onSubmit, card, setIsFormValid, isValid }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(card);
+  };
+
+  useEffect(() => {
+    setIsFormValid(true);
+  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -12,6 +19,7 @@ function PopupWithSubmit({ isOpen, onClose, onSubmit, card }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isValid={isValid}
     ></PopupWithForm>
   );
 }

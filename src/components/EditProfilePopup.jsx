@@ -8,6 +8,10 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onUpdateValid, isVali
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
+    setIsFormValid(false);
+  }, [isOpen]);
+
+  useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser, isOpen]);
@@ -38,7 +42,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, onUpdateValid, isVali
       onClose={onClose}
       onSubmit={handleSubmit}
       isValid={isValid}
-      setIsFormValid={setIsFormValid}
     >
       <label>
         <input

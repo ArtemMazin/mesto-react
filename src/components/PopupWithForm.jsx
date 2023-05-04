@@ -1,24 +1,11 @@
 import { useEffect } from 'react';
 
-function PopupWithForm({
-  isOpen,
-  name,
-  title,
-  onSubmit,
-  children,
-  isValid,
-  buttonName,
-  onClose,
-  setIsFormValid,
-}) {
-  // useEffect(() => {
-  //   setIsFormValid(false);
-  // }, [isOpen]);
-
+function PopupWithForm({ isOpen, name, title, onSubmit, children, isValid, buttonName, onClose }) {
   return (
     <div
       className={`popup popup_background_light ${isOpen ? 'popup_opened' : ''}`}
-      id={`popup-${name}`}>
+      id={`popup-${name}`}
+    >
       <div className='popup__container'>
         <h2 className='popup__title'>{title}</h2>
         <form
@@ -26,14 +13,14 @@ function PopupWithForm({
           name={`form_${name}`}
           id={`form-${name}`}
           noValidate
-          onSubmit={onSubmit}>
+          onSubmit={onSubmit}
+        >
           {children}
           <button
-            className={`popup__button-submit ${
-              !isValid ? 'popup__button-submit_disabled' : ''
-            }`}
+            className={`popup__button-submit ${!isValid ? 'popup__button-submit_disabled' : ''}`}
             type='submit'
-            disabled={!isValid}>
+            disabled={!isValid}
+          >
             {buttonName}
           </button>
         </form>
@@ -41,7 +28,8 @@ function PopupWithForm({
         <button
           className='popup__close-btn'
           type='button'
-          onClick={onClose}></button>
+          onClick={onClose}
+        ></button>
       </div>
     </div>
   );
