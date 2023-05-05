@@ -10,6 +10,7 @@ function AddPlacePopup({
   setIsFormValid,
   handleChangeErrorsValidation,
   errors,
+  isLoading,
 }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
@@ -44,7 +45,7 @@ function AddPlacePopup({
     <PopupWithForm
       title="Новое место"
       name="cards"
-      buttonName="Создать"
+      buttonName={!isLoading ? 'Создать' : 'Создание...'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

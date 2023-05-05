@@ -9,7 +9,6 @@ function PopupWithForm({ isOpen, name, title, onSubmit, children, isValid, butto
         onClose();
       }
     }
-
     document.addEventListener('keydown', closeByEscape);
     return () => document.removeEventListener('keydown', closeByEscape);
   }, [isOpen, onClose]);

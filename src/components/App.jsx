@@ -19,6 +19,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
   const [isFormValid, setIsFormValid] = useState(false);
@@ -27,6 +28,7 @@ function App() {
   function checkFormValid(e) {
     setIsFormValid(e.target.form.checkValidity());
   }
+  //записываю имя инпута и сообщение об ошибке в объект, чтобы потом передать сообщение в <span>
   function handleChangeErrorsValidation(e) {
     setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
   }
@@ -71,35 +73,61 @@ function App() {
   }
 
   function handleUpdateUser(user) {
-    api.changeProfileData(user).then((userInfo) => {
-      setCurrentUser(userInfo);
-      closeAllPopups();
-    });
+    setIsLoading(true);
+    api
+      .changeProfileData(user)
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateAvatar(user) {
-    api.changeAvatar(user).then((userInfo) => {
-      setCurrentUser(userInfo);
-      closeAllPopups();
-    });
+    setIsLoading(true);
+    api
+      .changeAvatar(user)
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
-      setCards(newCards);
-    });
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      const newCards = cards.filter((newCard) => {
-        return newCard._id !== card._id;
-      });
-      setCards(newCards);
-      closeAllPopups();
-    });
+    setIsLoading(true);
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        const newCards = cards.filter((newCard) => {
+          return newCard._id !== card._id;
+        });
+        setCards(newCards);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
   }
   function handleRemoveIconClick(card) {
     setSelectedCard(card);
@@ -107,10 +135,17 @@ function App() {
   }
 
   function handleAddPlaceSubmit(card) {
-    api.addNewCard(card).then((newCard) => {
-      setCards([newCard, ...cards]);
-      closeAllPopups();
-    });
+    setIsLoading(true);
+    api
+      .addNewCard(card)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -136,6 +171,7 @@ function App() {
           setIsFormValid={setIsFormValid}
           handleChangeErrorsValidation={handleChangeErrorsValidation}
           errors={errors}
+          isLoading={isLoading}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
@@ -146,6 +182,7 @@ function App() {
           setIsFormValid={setIsFormValid}
           handleChangeErrorsValidation={handleChangeErrorsValidation}
           errors={errors}
+          isLoading={isLoading}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
@@ -156,6 +193,7 @@ function App() {
           setIsFormValid={setIsFormValid}
           handleChangeErrorsValidation={handleChangeErrorsValidation}
           errors={errors}
+          isLoading={isLoading}
         />
         <PopupWithSubmit
           isOpen={isPopupWithSubmit}
@@ -164,6 +202,7 @@ function App() {
           card={selectedCard}
           isValid={isFormValid}
           setIsFormValid={setIsFormValid}
+          isLoading={isLoading}
         />
         <ImagePopup
           isOpen={isImagePopupOpen}

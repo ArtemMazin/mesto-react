@@ -11,6 +11,7 @@ function EditProfilePopup({
   setIsFormValid,
   handleChangeErrorsValidation,
   errors,
+  isLoading,
 }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -46,7 +47,7 @@ function EditProfilePopup({
     <PopupWithForm
       title="Редактировать профиль"
       name="profile"
-      buttonName="Сохранить"
+      buttonName={!isLoading ? 'Сохранить' : 'Сохранение...'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function PopupWithSubmit({ isOpen, onClose, onSubmit, card, setIsFormValid, isValid }) {
+function PopupWithSubmit({ isOpen, onClose, onSubmit, card, setIsFormValid, isValid, isLoading }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(card);
@@ -15,7 +15,7 @@ function PopupWithSubmit({ isOpen, onClose, onSubmit, card, setIsFormValid, isVa
     <PopupWithForm
       title="Вы уверены?"
       name="delete"
-      buttonName="Да"
+      buttonName={!isLoading ? 'Да' : 'Удаление...'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

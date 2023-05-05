@@ -10,6 +10,7 @@ function EditAvatarPopup({
   setIsFormValid,
   handleChangeErrorsValidation,
   errors,
+  isLoading,
 }) {
   const input = useRef();
 
@@ -32,7 +33,7 @@ function EditAvatarPopup({
     <PopupWithForm
       title="Обновить аватар"
       name="avatar"
-      buttonName="Сохранить"
+      buttonName={!isLoading ? 'Сохранить' : 'Сохранение...'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
